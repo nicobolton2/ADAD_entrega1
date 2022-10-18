@@ -15,14 +15,12 @@ Para iniciar, se debe clonar el repocitorio
 
 ```
 git clone 
-
 ```
 
 Luego, se debe realizar la ejecucion de las tecnologias desarrolladas
 
 ```
 docker-compose up --build 
-
 ```
 ## Rutas
 Una vez levantado, se debe habrir el navegador y tener presente las siguientes rutas:
