@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+
+#postgres
+  dbsql:
+    image: postgres:13.4-alpine3.14
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./backend/db-model:/docker-entrypoint-initdb.d/
+      - ./backend/db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
+#javascript .express  
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile 
+    depends_on:
+      - dbsql
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: dbsql
+    volumes:
+      - ./backend/src:/home/node/src
+    ports:
+      - "3000:3000"
+    restart: always
+
+#pgadmin
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "4000:80"
+    depends_on:
+      - dbsql
+
+#apache
+  cliente:
+    container_name: cliente
+    build: ./frontend
+    depends_on:
+      - dbsql
+      - backend
+    ports:
+      - "80:80"
+    restart: always
