@@ -62,7 +62,6 @@ router.post('/login', async(req,res) =>{
     if( getUser.rows.length){
         res.json({
             status:1,
-            token:getUser.rows[0].id_usuario
         })
         return
     }else{
