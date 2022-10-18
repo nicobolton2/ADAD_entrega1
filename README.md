@@ -14,7 +14,7 @@ En esta ocasión, se enfocó en Clash Royale y cartas que se encuentran dentro d
 Para iniciar, se debe clonar el repocitorio
 
 ```
-git clone 
+git clone https://github.com/nicobolton2/ADAD_entrega1.git
 ```
 
 Luego, se debe realizar la ejecucion de las tecnologias desarrolladas
