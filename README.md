@@ -1,4 +1,4 @@
- #ARQUITECTURAS DE ALTA DISPONIBILIDAD - Tarea 1 / Docker
+ # ARQUITECTURAS DE ALTA DISPONIBILIDAD - Tarea 1 / Docker
 
 ![image](https://user-images.githubusercontent.com/65205530/196405081-1134a5da-223d-406f-80d2-4e220eb9ccf1.png)
 
