@@ -4,7 +4,7 @@ const pool = require("../../db");
 const cors=require('cors');
 
 router.get('/',(req,res) =>{
-    res.json({"Title":"hola"});
+    res.json({"Title":"Hello World!!!"});
 })
 
 // home de cartas
@@ -16,8 +16,8 @@ router.get('/home', async(req, res) => {
 
 //ver una carta
 router.post('/commit', async (req,res) =>{
-    const {id_carta}=req.body;
-    const data= await pool.query("Select * FROM cards where id_carta=$1", [id_carta])
+    const {id_carta} = req.body;
+    const data = await pool.query("Select * FROM cards where id_carta=$1", [id_carta])
     res.json(data.rows);
 })
 
@@ -29,9 +29,14 @@ router.post('/commit2', async (req,res) =>{
 })
 
 // insertar COMENTARIO
+
+//si esta mal escrito el usuario lo crea en null :c eso es porque no lo validamos
 router.post('/writecommit', async (req,res) =>{
-    const {id_carta, user, commit}=req.body;
-    const data= await pool.query("INSERT INTO comment(id_user,id_carta,comentario) VALUES ($1,$2,$3)", [user,id_carta,commit])
+    const {user, id_carta, commit}=req.body;
+    const data= await pool.query("INSERT INTO comment(id_user,id_carta,comentario) VALUES ((SELECT id_user FROM usuarios WHERE usuario=$1),$2,$3)", [user,id_carta,commit])
+    console.log(id_carta);
+    console.log(user);
+    console.log(commit);
     res.json({
         status:1
     });

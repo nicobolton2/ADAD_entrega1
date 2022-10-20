@@ -1,743 +1,163 @@
+
 <!DOCTYPE html>
-<html data-vm-ssr lang="en" data-vm="%7B%22lang%22:%7B%221%22:%22en%22%7D%7D">
-    <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style type="text/css">
-
-
-    /*=====================================
-    estilos de la utilidad
-    Copiar esto
-    =====================================*/
-    .contenedor-comentarios {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .contenedor-comentarios img {
-        width: 100%;
-    }
-    
-    .area-comentar {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        margin-bottom: 1.5rem;
-        padding: 18px;
-        background-color: #152025;
-        box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
-        border-radius: 12px;
-    }
-    
-    .comentarios-usuarios {
-        width: calc(100% - 2.5rem);
-    }
-    
-    .contenedor-comentarios a {
-        text-decoration: none;
-    }
-    
-    .comentar-publicacion .avatar,
-    .publicacion-realizada .usuario-publico .avatar,
-    .contenedor-comentarios .comentario-principal-usuario .avatar,
-    .area-comentar .avatar {
-        display: flex;
-        width: 65px;
-        height: 65px;
-        background-color: #F4F4F4;
-        border-radius: 50%;
-        overflow: hidden;
-    }
-    .comentarios-usuarios .nombre-usuario {
-        font-weight: bold;
-        margin-right: .5rem;
-        color: inherit;
-    }
-    /* botones comentar */
-    .boton-subir-archivo {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .boton-subir-archivo input[type="file"] {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        position: absolute;
-        opacity: 0;
-        visibility: hidden;
-        width: 0;
-        height: 0;
-    }
-    
-    .boton-file,
-    .boton-enviar {
-        display: inline-block;
-        border: 0;
-        background-color: #374D71;
-        padding: 7px 15px;
-        margin-right: .5rem;
-        color: #fff;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color ease-in 200ms;
-    }
-    
-    .boton-file:hover,
-    .boton-enviar:hover {
-        background-color: #4C6FA7;
-    }
-    
-    /* fin */
-    .contenedor-comentarios .comentario-principal-usuario .comentario,
-    .area-comentar .inputs-comentarios {
-        flex-grow: 1;
-        flex-basis: 0;
-        margin-left: .5rem;
-    }
-    
-    .area-comentar .inputs-comentarios {
-        margin-left: 1rem;
-    }
-    
-    .contenedor-comentarios .comentario-principal-usuario .texto,
-    .area-comentar .inputs-comentarios .area-comentario {
-        border: 0;
-        background-color: whitesmoke;
-        color: black;
-        display: block;
-        width: 100%;
-        border-radius: 12px;
-        margin-bottom: .5rem;
-    }
-    
-    .botones-comentario span.tiempo-comentario {
-        font-size: 0.8rem !important;
-        color: #9F9F9F;
-        margin-left: .25rem;
-    }
-    
-    .area-comentar .inputs-comentarios .area-comentario {
-        padding: 12px 15px;
-    }
-    
-    .area-comentar .inputs-comentarios .botones-comentar {
-        display: flex;
-    }
-    
-    /* comentarios de usuario */
-    .comentarios-usuarios .comentario-principal-usuario {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    
-    .comentarios-usuarios .usuario-comentario {
-        width: 100%;
-        display: block;
-        margin-bottom: 0.75rem;
-        position: relative;
-    }
-    
-    .menu-comentario {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background-color: #152025;
-        border-radius: 50%;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-    
-    .comentarios-usuarios .usuario-comentario .menu-comentario {
-        top: 5px;
-        right: -15px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, .4);
-    }
-    
-    .comentarios-usuarios .usuario-comentario:hover .menu-comentario {
-        display: flex;
-    }
-    
-    .publicacion-realizada .menu-comentario {
-        display: flex;
-        right: 0;
-    }
-    
-    .menu-comentario .menu {
-        list-style: none;
-        position: absolute;
-        right: 100%;
-        background-color: #fff;
-        box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
-        border-radius: 8px;
-        padding-top: 7px;
-        padding-bottom: 7px;
-        opacity: 0;
-        visibility: hidden;
-        transition: all ease-in 200ms;
-    }
-    
-    .menu-comentario:hover .menu {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .menu-comentario .menu a {
-        display: block;
-        padding: 7px 15px;
-        color: inherit;
-    }
-    
-    .menu-comentario .menu a:hover {
-        background-color: #E1E1E1;
-    }
-    
-    .publicacion-realizada .usuario-publico .avatar,
-    .comentarios-usuarios .comentario-principal-usuario .avatar {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .comentarios-usuarios .comentario-principal-usuario .texto {
-        padding: 10px 15px;
-        width: auto;
-        display: inline-block;
-        max-width: 100%;
-        margin-bottom: .25rem;
-        font-size: 0.9rem;
-        position: relative;
-        padding-right: 1.65rem;
-        
-    }
-    
-    .comentarios-usuarios .comentario-principal-usuario .comentar-comentario {
-        width: 100%;
-        display: flex;
-    }
-    
-    .comentarios-usuarios .comentar-publicacion input[type="text"] {
-        border: 0;
-        background-color: #000000;
-        color: #000000;
-        flex-grow: 1;
-        flex-basis: 0;
-        padding: 8px 10px;
-        font-size: .9rem;
-        border-radius: 8px;
-        margin-right: 0.5rem;
-        margin-left: 0.5rem;
-    }
-    
-    .botones-comentario {
-        display: block;
-    }
-    
-    .botones-comentario button {
-        display: inline-block;
-        border: 0;
-        padding: 3px 8px;
-        font-size: .8rem;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-    
-    .botones-comentario button:hover {
-        background-color:grey;
-    }
-    
-    .comentar-publicacion .avatar,
-    .contenedor-sub-comentarios .comentario-principal-usuario .avatar {
-        width: 32px;
-        height: 32px;
-    }
-    
-    .boton-enviar i,
-    .boton-file i,
-    .boton-puntuar i,
-    .boton-responder i {
-        margin-right: .5rem;
-    }
-    
-    /* publicacion realizada */
-    .publicacion-realizada {
-        margin-bottom: 1.5rem;
-    }
-    
-    .publicacion-realizada .usuario-publico {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        margin-bottom: .5rem;
-        position: relative;
-    }
-    
-    .publicacion-realizada .usuario-publico .contenido-publicacion {
-        margin-left: 1rem;
-    }
-    
-    .comentar-publicacion {
-        display: flex;
-        width: 100%;
-    }
-    
-    .comentar-publicacion .comentar-comentario {
-        flex-grow: 1;
-        flex-basis: 0;
-        display: flex;
-        align-items: center;
-    }
-    
-    .publicacion-realizada p {
-        margin-bottom: 0.5rem;
-        font-size: 0.9em;
-    }
-    
-    .archivo-publicado img {
-        position: relative;
-        width: 100%;
-        border-radius: 8px;
-    }
-    
-    .publicacion-realizada .contenido-publicacion ul {
-        list-style: none;
-        font-size: 0.8em;
-        color: #1e1a1a;
-    }
-    </style>
-    <style>
-      .mensaje a {
-          color: inherit;
-          margin-right: .5rem;
-          display: inline-block;
-      }
-      .mensaje a:hover {
-          color: #309B76;
-          transform: scale(1.4)
-      }
-      </style>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
-
-  <title>Omen Abilities, Guides and Insights - Valorant Tracker Database</title>
-
-  <meta name="google-play-app" content="app-id=network.tracker.app" />
-  <meta name="apple-itunes-app" content="app-id=1287696482" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="msapplication-config" content="/public/browserconfig.xml" />
-  <meta name="msapplication-TileColor" content="#101921" />
-  <meta name="msapplication-TileImage" content="/public/icons/tile310.png" />
-
-  <meta data-vm="1" name="application-name" content="Valorant Tracker"><meta data-vm="1" name="theme-color" content="#0F1923"><meta data-vm="1" name="apple-mobile-web-app-title" content="Valorant Tracker"><meta data-vm="1" property="og:site_name" content="Valorant Tracker"><meta data-vm="1" name="google-site-verification" content="VfaBxCxbmP9F89tHWbmlNBwLqs9pfcYcoiORZTgQzC4"><meta data-vm="1" data-vmid="og:type" property="og:type" content="website"><meta data-vm="1" data-vmid="og:image" property="og:image" content="/public/icons/tile310.png"><meta data-vm="1" data-vmid="twitter:card" property="twitter:card" content="summary"><meta data-vm="1" data-vmid="twitter:site" property="twitter:site" content="@trackernetwork"><meta data-vm="1" data-vmid="description" name="description" property="og:description" content="A phantom of a memory, Omen hunts in the shadows. He renders enemies blind, teleports across the field, then lets paranoia take hold as his foe scrambles to uncover where he might strike next.">
-
-  <link rel="icon" sizes="192x192" href="/public/icons/icon192.png" />
-  <link rel="apple-touch-icon" href="/public/icons/icon192.png" />
-  <link rel="manifest" href="/public/manifest.json">
-  <link rel="preconnect" href="https://sessions.bugsnag.com" crossorigin="use-credentials"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link rel="preconnect" href="https://imgsvc.trackercdn.com" />
-  <link rel="preconnect" href="https://trackercdn.com" />
-  <link rel="preconnect" href="https://trackerads.com" />
-  <link rel="dns-prefetch" href="https://account.tracker.gg" />
-
-  <!-- Preload ONLY latin character sets for our main fonts -->
-  <link rel="preload" href="https://fonts.gstatic.com/s/roboto/v19/KFOlCnqEu92Fr1MmEU9fBBc4.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="https://fonts.gstatic.com/s/roboto/v19/KFOmCnqEu92Fr1Mu4mxK.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="https://fonts.gstatic.com/s/rajdhani/v8/LDI2apCSOBg7S-QT7pa8FvOreec.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="https://fonts.gstatic.com/s/rajdhani/v8/LDI2apCSOBg7S-QT7pb0EPOreec.woff2" as="font" type="font/woff2" crossorigin>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clash Royale</title>
+</head>
+<body>
+  
 
 
-  <!-- <script type="text/javascript" src="cdvfile://localhost/assets/www/cordova.js"></script> -->
-  <script>
-    if (navigator.userAgent.indexOf('cordova') > -1) {
-      window.isTRNNative = true
-      window.isTRNMobile = true
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ------->
 
-      var cordovaLoader = document.createElement('script')
-      cordovaLoader.src = 'cdvfile://localhost/assets/www/cordova.js'
-      document.head.appendChild(cordovaLoader)
-    }
-  </script>
+ <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+ <link rel="stylesheet" href="css/gallery.css" media="screen">
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+ <div class="container">
+  <img src="card-png/archers.png" alt="archers" class="img-rounded">
+  <form>
 
-  <script>
-    var showAd = true;
 
-    var excludePatterns = [
-      /^\/overlays\/?.*$/,
-      /^\/.*?\/mobile\/?.*$/,
-      /^\/.*?\/app\/?.*$/
-    ]
+    <div class="form-group">
+      <label for="nickname">Nickname</label>
+      <input type="text" class="form-control" id="nickname" placeholder="nickname">
+    </div>
 
-    var isExcludedLocation = excludePatterns.reduce(function (excluded, pattern) {
-      return excluded || pattern.test(location.pathname)
-    }, false)
+    <div class="form-group">
+      <label for="resena">Escriba su comentario</label>
+      <textarea class="container"class="form-control" id="comment" rows="3"></textarea>
+    </div>
+    <button class="w-100 mb-4 btn btn-lg rounded-3 btn-primary" type="submit" onclick="LoadComment()">Subir comentario</button>
+    <!--button class="w-100 mb-2 btn btn-lg rounded-3 btn btn-outline-dark" type="submit" onclick="LoadUpgrade()">Editar comentario</button>-->
 
-    if (isExcludedLocation) {
-      showAd = false;
-    }
-    if (showAd) {
-      var isPremium = false;
-      var profileCacheStr = localStorage.getItem('account.profileCache')
-      if (profileCacheStr) {
-        var profileCache = JSON.parse(profileCacheStr);
-        isPremium = profileCache.isPremium;
-      }
+    
+  </form>
+  <div class="container">
+    <div class="row">
+      <div class="col" id="idtable" ></div>
+    </div>
+  </div>
+  
+</div>
+<script src="js/gallery.js"></script>
 
-      if (!isPremium) {
 
-        window.cpmstarskin = function() {
-          if (document.body) {
-              document.body.classList.add('skin-takeover');
-          } else {
-            document.addEventListener("DOMContentLoaded", function() {
-              document.body.classList.add('skin-takeover');
-            });
-          }
-        };
-      }
-    }
-  </script>
-<link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/runtime~app.c3679658e.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.195911529.353345250.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2859247374.ed051d481.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.5861607.be3de19cb.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.895576494.793d91b4e.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3143254658.951f5f9ef.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3665215074.118694f2e.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.1006258764.2dfc0fdda.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3574576705.d5e5052e7.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2541854834.2ae31b8cb.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.1180871136.c38c2cf14.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.194596312.042e3aed4.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3377862948.b1d3d1718.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.180579305.5b2ea44f8.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.767020626.316dbdd23.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2509558727.24204e8c5.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.165396381.b89ce8a68.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3408046358.9b3cc8347.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.1824496410.71293d0b7.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2116492110.685028cb4.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.4255602998.d355b2b39.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2217842790.4199a1313.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2790113976.a9684ce89.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3945908192.d22672fc0.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.1164752937.618ce5ad9.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.1280697751.a59232bc9.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3375868479.e9fd22d9e.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.1676318355.3add1f617.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2280667984.579bc1ab9.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2998981541.9b500aabb.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3996908920.7ddbb9c89.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.193405987.8661643f7.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.3670589015.6a6c51d27.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor.2088379003.e85295c18.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/129.31e8cc97f.css" as="style"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/vendors~app.31e8cc97f.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/87.971a7684e.css" as="style"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/app.971a7684e.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/6.aaba76dd6.js" as="script"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/250.a406a3b37.css" as="style"><link rel="preload" href="https://trackercdn.com/static-files/trackergg/production/dist/js/250.a406a3b37.js" as="script"><link rel="stylesheet" href="https://trackercdn.com/static-files/trackergg/production/dist/129.31e8cc97f.css"><link rel="stylesheet" href="https://trackercdn.com/static-files/trackergg/production/dist/87.971a7684e.css"><link rel="stylesheet" href="https://trackercdn.com/static-files/trackergg/production/dist/250.a406a3b37.css"></head>
-
-<body >
-<section class="contenedor-comentarios">
-    <h1>Reseñas</h1>
-        <br>
-            <br>
-                <div class="area-comentar" style="display: block;" >
-                    <p id="username"></p>
-                
-                    <div  class="inputs-comentarios">
-                        <textarea name="" class="area-comentario" id="areacomentario">  
-
-                        </textarea>
-                        <div class="botones-comentar"> 
-                            <button class="boton-enviar"  onclick="addcoment()">
-                                <i class="fas fa-paper-plane">
-
-                                </i>
-                                Comentar
-                            </button>
-                        </div>
-                    </div>
-                    </div>
-                <div class="publicacion-realizada" style="display: none;">
-                    <div class="usuario-publico">
-                        <div class="contenido-publicacion">
-                            <h4 id="nombrelogeado"></h4>
-                      
-                        </div>
-                  
-                    <div class="menu-comentario">
-                      <i class="fas fa-pen"></i>
-                      <ul class="menu">
-                          <li><a onclick="editcomment()">Editar</a></li>
-                          <li><a onclick="deletecomment()">Eliminar</a></li>
-                      </ul>
-                  </div>
-              </div>
-              <p id="comentariologeado"></p>
-              
-              
-          </div>
-          
-          
-                
-            </section>
-
-  <script src="https://trackercdn.com/static-files/trackergg/production/dist/js/vendor/oidc-client-1.11.5.js"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"75accc06be892889","token":"74bbfac95baf4f8f876f5c08d45d8ec3","version":"2022.8.1","si":100}' crossorigin="anonymous"></script>
 <script>
+  async function LoadComment(){
+    let nickname = document.getElementById("nickname");
+    let comment = document.getElementById("comment");
+    console.log(nickname.value);
+    console.log(comment.value);
+    fetch('http://localhost:3000/writecommit', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: nickname.value,
+        id_carta:1,
+        commit: comment.value
+      }),
+    })
+  }
+
+  async function show(){
+    fetch('http://localhost:3000/commit2', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id_carta: 1
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {console.log(data)
+    //if(data.length > 0){
+
+      var contenedorTabla = document.getElementById("idtable");
+      contenedorTabla.innerHTML = "";
+      var tabla = "<table class='table table-hover table-dark'>";
+      tabla += "<tr><th>#</th><th>Usuario</th><th>Comentario</th><th></th><th></th></tr>"
+      var numero = 0;
+      for (let tarea of data) {
+        //guardar el id de comentario, guardar de alguna forma el loadEditar y ver por que chucha no funciona
+        numero += 1 
+        tabla += "<tr> <td id='id_comentario";
+        tabla += tarea.id_comentario;
+        tabla += "'>";
+
+        tabla += tarea.id_comentario;
+
+        tabla += "</td><td>"; 
+
+        tabla += tarea.usuario;
+
+        tabla += "</td><td>"; 
+
+        tabla += tarea.comentario;
+
+        tabla += "</td><td onclick=loadEditar(";
+        tabla += tarea.id_comentario;
+        tabla += ")>"; 
+
+        tabla += "editar";
+
+        tabla += "</td><td onclick=loadBorrar(";
+        tabla += tarea.id_comentario;
+        tabla += ")>"; 
+
+        tabla += "borrar";
+
+        tabla += "</td></tr>"; 
+      } 
+      tabla += "</table>"; 
+      
+      contenedorTabla.innerHTML = tabla;
+      console.log("si esta pasando")
     
-    let user=document.getElementById("username");
-    
-    
-    
-    function GetLogeado(user){
-       
-      fetch("http://localhost:3000/logeados",{
-        method:"GET", headers:{
-        "Content-Type": "application/json",
-        'Accept': 'application/json'} 
-      }).then(response=>response.json())
-      .then(async data => {
-        //console.log(data);
-        //console.log(data[0].Email);
-        user.innerText=data[0].Email;
-        user.value=data[0].Email;
-      })
-
-    }
-let name=document.getElementsByClassName("agent__name")[0].innerText;
-console.log(name.split(" FOR")[0]+"Y JOACO SE AMAN");
-window.onload = GetLogeado(user);
-
-let loading = false;
-
-
-function GetUserRelated(){
-    console.log(name.split(" FOR")[0])
-   console.log(user.innerText);
-        fetch("http://localhost:3000/miresenia",{
-            method:"POST",
-            headers:{
-                "Content-Type": "application/json",
-                'Accept': 'application/json',
-                },
-                body:JSON.stringify({
-                email: user.innerText,
-                //email:"maria.gomez@gmail.com",
-                name: name.split(" FOR")[0],
-                }),
-            }).then(response=>response.json())
-            .then( (json) => {
-
-                if(json =="No se encontro Resenia"){
-
-                }
-                else{
-                    comentario =document.querySelector(".publicacion-realizada")
-                    comentario.style.display="block"
-                    caja=document.querySelector(".area-comentar")
-                    caja.style.display="none"
-                    usuario=document.getElementById('nombrelogeado')
-                    usuario.innerText=json.Email
-                    comentario=document.getElementById('comentariologeado')
-                    comentario.innerText=json.Comment
-                    console.log(json)
-                }
-            }).catch(err => {
-                console.log(err)
-                
-            });
-        }
-
-
-
-
-
-
-
-
-function GetUsersNotRelated(){
-   console.log(name.split(" FOR")[0])
-   console.log(user.innerText);
-        fetch("http://localhost:3000/allresenias",{
-            method:"POST",
-            headers:{
-                "Content-Type": "application/json",
-                'Accept': 'application/json',
-                },
-                body:JSON.stringify({
-                email: user.innerText,
-                name: name.split(" FOR")[0],
-                }),
-            }).then(response=>response.json())
-            .then( (json) => {
-                for (let i = 0; i < json.length; i++) {
-                const newElement = document.createElement("div");
-                newElement.className="publicacion-realizada";
-                const newElement2 = document.createElement("div");
-                newElement2.className="usuario-publico";
-                const newElement3 = document.createElement("div");
-                newElement3.className="contenido-publicacion";
-                const newElement4 = document.createElement("h4");
-                newElement4.textContent=json[i]['Email'];
-                const newElement11 = document.createElement("p");
-                newElement11.textContent=json[i]['Comment'];
-                newElement3.appendChild(newElement4);
-                newElement2.appendChild(newElement3);
-                newElement.appendChild(newElement2);
-                newElement.appendChild(newElement11);
-                document.querySelector(".contenedor-comentarios").appendChild(newElement);
-            }
-                
-                
-            }).catch(err => {
-                console.log(err)
-            });
-    }
-
-
-    function addcoment(){
-        
-        email=user.innerText
-        let comentario1= document.getElementById('areacomentario');
-        
-        
-
-        fetch("http://localhost:3000/postresenias",{
-            method:"POST",
-            headers:{
-                "Content-Type": "application/json",
-                'Accept': 'application/json',
-                },
-                body:JSON.stringify({
-                name: name.split(" FOR")[0],
-                email: email,
-                comment: comentario1.value,
-                }),
-            }).then(response=>response.json())
-            .then( (json) => {
-                if (json=="Resenia ya registrada"){
-                    console.log("editando")
-                                            fetch("http://localhost:3000/putresenias",{
-                                    method:"PUT",
-                                    headers:{
-                                       "Content-Type": "application/json",
-                                        'Accept': 'application/json',
-                                        },
-                                        body:JSON.stringify({
-                                        name: name.split(" FOR")[0],
-                                        email: email,
-                                        comment: comentario1.value,
-                                        }),
-                                    }).then(response=>response.json())
-                                    .then( (json) => {
-                                        if (json=="Resenia ya registrada"){
-
-                                        }
-                                    }).catch(err => {
-                                        console.log(err)
-                                    });
-
-
-
-
-
-            
-                }
-            }).catch(err => {
-                console.log(err)
-            });
-                    comentario =document.querySelector(".publicacion-realizada")
-                    comentario.style.display="block"
-                    caja=document.querySelector(".area-comentar")
-                    caja.style.display="none"
-                    usuario=document.getElementById('nombrelogeado')
-                    usuario.innerText=email
-                    comentario=document.getElementById('comentariologeado')
-                    comentario.innerText=comentario1.value
-            
-            
-
-            
-            
-
-            
-            
-    }
-
-    function deletecomment(){
-        email=user.innerText
-        console.log("eliminando")
-        console.log(email)
-        console.log(name.split(" FOR")[0])
-
-        
-fetch("http://localhost:3000/deleteresenias",{
-            method:"DELETE",
-            headers:{
-                "Content-Type": "application/json",
-                'Accept': 'application/json',
-                },
-                body:JSON.stringify({
-                name: name.split(" FOR")[0],
-                email: email,
-                }),
-            }).then(response=>response.json())
-            .then( (json) => {
-                console.log(json)
-            }).catch(err => {
-                console.log(err)
-            });
-
-            comentario =document.querySelector(".publicacion-realizada")
-                    comentario.style.display="none"
-                    caja=document.querySelector(".area-comentar")
-                    caja.style.display="block"
-                    let comentario1= document.getElementById('areacomentario');
-                    comentario1.value=""     
-    }
-
-
-    function editcomment(){
-
-
-
-        
-                    comentariologeado=document.getElementById('comentariologeado')
-                    
-
-
-                    comentario =document.querySelector(".publicacion-realizada")
-                    comentario.style.display="none"
-                    caja=document.querySelector(".area-comentar")
-                    caja.style.display="block"
-                    let comentario1= document.getElementById('areacomentario');
-                    comentario1.value=comentariologeado.innerText
-
-
-
-            
-
-               
-    }
-
-    function logout(){
-
-        email=user.innerText
-        fetch("http://localhost:3000/logout",{
-            method:"POST",
-            headers:{
-                "Content-Type": "application/json",
-                'Accept': 'application/json',
-                },
-                body:JSON.stringify({
-                email: email
-                }),
-            }).then(response=>response.json())
-            .then( (json) => {
-                console.log(json)
-                window.location.href="http://localhost:5000/Login.html"  
-                
-            }).catch(err => {
-                console.log(err)
-        });
-
-        
-
-                    
-    }
-        
- 
-        
-
-
-
-    
-
- 
- //GetUsersNotRelated()
-
- window.setTimeout(GetUserRelated, 300);
- window.setTimeout(GetUsersNotRelated, 400);
-
-
-
- 
+    //}  
+    })
+  }
+show();
+  async function loadEditar(id_com){
+    let comment = document.getElementById("comment");
+    console.log(comment);
+    fetch('http://localhost:3000/editar', {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        idcommit: id_com,
+        commit: comment.value
+      }),
+    })
+    location.reload();
+  }  
+  async function loadBorrar(id_com){
+    fetch('http://localhost:3000/borrar', {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        idcommit: id_com,
+      }),
+    })
+    location.reload();
+  }  
 </script>
-</body>
 
+</body>
 </html>
