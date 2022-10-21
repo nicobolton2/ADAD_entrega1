@@ -27,7 +27,7 @@ Una vez levantado, se debe habrir el navegador y tener presente las siguientes r
 
 ### 1. POST - Login
 ```
-http://localhost:3000/login
+http://localhost:80/login
 ```
 Donde entregamos:
 ```
@@ -47,7 +47,7 @@ Se obtiene:
 ### 2. GET - Ver cartas
 
 ```
-http://localhost:3000/home
+http://localhost:80/home
 ```
 Donde en este caso, no se le entregan parametros, si no que mas bien muestra los elementos
 
@@ -78,7 +78,7 @@ Se obtiene:
 ### 3. PUT - Editar
 
 ```
-http://localhost:3000/writecommit
+http://localhost:80/writecommit
 ```
 Donde entregamos:
 
@@ -100,7 +100,7 @@ Se obtiene:
 ### 4. DELETE - Eliminar comentario
 
 ```
-http://localhost:3000/borrar
+http://localhost:80/borrar
 ```
 Donde entregamos:
 
